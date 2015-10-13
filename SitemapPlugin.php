@@ -25,7 +25,9 @@ class SitemapPlugin extends Omeka_plugin_AbstractPlugin
     protected $_hooks = array('define_routes','install','uninstall','config_form','config');
 
     public function hookConfigForm(){
-        echo '<p>A dynamic xml sitemap has been installed and populated with the public navigation links on your site, and robots.txt should have been updated to reflect this file\'s location. However, if your robots.txt file was not writable by the web server, you may have to update it manually.</p><p>If you would like like to register your sitemap with search engines, the url is:</p><h3> '.absolute_url('sitemap.xml').'</h3><p> Thank you for using the sitemap plugin!</p>';
+        $serverUrlHelper = new Zend_View_Helper_ServerUrl;
+        $serverUrl = $serverUrlHelper->serverUrl();
+        echo '<p>A dynamic xml sitemap has been installed and populated with the public navigation links on your site, and robots.txt should have been updated to reflect this file\'s location. However, if your robots.txt file was not writable by the web server, you may have to update it manually.</p><p>If you would like like to register your sitemap with search engines, the url is:</p><h3> '.$serverUrl.public_url('sitemap.xml').'</h3><p> Thank you for using the sitemap plugin!</p>';
     }
 
     public function hookConfig(){
@@ -81,7 +83,10 @@ class SitemapPlugin extends Omeka_plugin_AbstractPlugin
     
     private function _update_robots()
     {
-        $sitemap_uri = public_url('sitemap.xml');
+
+        $serverUrlHelper = new Zend_View_Helper_ServerUrl;
+        $serverUrl = $serverUrlHelper->serverUrl();
+        $sitemap_uri = $serverUrl.public_url('sitemap.xml');
         //update the site robots.txt file so it lists the sitemap
         
         // options for robots file 

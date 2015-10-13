@@ -12,5 +12,31 @@ $nav = new Omeka_Navigation;
 $nav->loadAsOption(Omeka_Navigation::PUBLIC_NAVIGATION_MAIN_OPTION_NAME);
 $nav->addPagesFromFilter(Omeka_Navigation::PUBLIC_NAVIGATION_MAIN_FILTER_NAME);
 
+$collections = get_db()->getTable('Collection')->findAll();
+foreach($collections as $collection) {
+    $page = new Omeka_Navigation_Page_Mvc(array(
+        'label'      => metadata($collection,array('Dublin Core','Title')),
+        'route'      => 'id',
+        'action'     => 'show',
+        'controller' => 'collection',
+        'params'     => array('id' => $collection->id)
+    ));
+    //    print_r($page);
+    $nav->addPage($page);
+}
+
+if(plugin_is_active('ExhibitBuilder')){
+    $exhibits = get_db()->getTable('Exhibit')->findAll();
+    foreach($exhibits as $exhibit) {
+        $page = new Omeka_Navigation_Page_Mvc(array(
+            'route'      => 'id',
+            'action'     => 'show',
+            'controller' => 'exhibit',
+            'params'     => array('id' => $exhibit->id)
+        ));
+        $nav->addPage($page);
+    }
+}
+
 echo $this->navigation()->sitemap($nav);
 ?>
