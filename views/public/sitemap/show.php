@@ -29,10 +29,10 @@ if(plugin_is_active('ExhibitBuilder')){
     $exhibits = get_db()->getTable('Exhibit')->findAll();
     foreach($exhibits as $exhibit) {
         $page = new Omeka_Navigation_Page_Mvc(array(
-            'route'      => 'id',
+            'route'      => 'exhibitSimple',
             'action'     => 'show',
-            'controller' => 'exhibit',
-            'params'     => array('id' => $exhibit->id)
+            'controller' => 'exhibits',
+            'params'     => array('slug' => $exhibit->slug)
         ));
         $nav->addPage($page);
     }
