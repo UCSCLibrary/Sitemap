@@ -42,7 +42,6 @@ class SitemapPlugin extends Omeka_plugin_AbstractPlugin
         $this->_remove_robots();
     }
 
-
     private function _remove_robots() {
         // remove reference to sitemap from robots.txt upon uninstall
         $robotspath = BASE_DIR . "/robots.txt";
@@ -131,5 +130,4 @@ class SitemapPlugin extends Omeka_plugin_AbstractPlugin
             )
         );
     }
-
 }

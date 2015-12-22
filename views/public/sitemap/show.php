@@ -18,10 +18,10 @@ foreach($collections as $collection) {
         'label'      => metadata($collection,array('Dublin Core','Title')),
         'route'      => 'id',
         'action'     => 'show',
-        'controller' => 'collection',
+        'controller' => 'collections',
         'params'     => array('id' => $collection->id)
     ));
-    //    print_r($page);
+    
     $nav->addPage($page);
 }
 
