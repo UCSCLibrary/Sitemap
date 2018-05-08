@@ -12,7 +12,7 @@
  * 
  * @package Sitemap
  */
-class SitemapPlugin extends Omeka_plugin_AbstractPlugin
+class SitemapPlugin extends Omeka_Plugin_AbstractPlugin
 {
     public function __toString() 
     {
